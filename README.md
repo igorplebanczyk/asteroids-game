@@ -1,2 +1,17 @@
-# asteroids-game
-Asteroids game built with PyGame
+# Asteroids Game 
+
+
+
+## Features
+
+
+
+## Installation
+
+
+
+## Usage
+
+
+
+## Notes
