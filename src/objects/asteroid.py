@@ -4,6 +4,7 @@ import pygame
 
 from src.objects.circleshape import CircleShape
 from src.objects.constants import *
+from src.objects.explosion import Explosion
 
 
 class Asteroid(CircleShape):
@@ -19,6 +20,7 @@ class Asteroid(CircleShape):
 
     def split(self):
         self.kill()
+        Explosion(self.position.x, self.position.y, self.radius)
 
         if self.radius < ASTEROID_MIN_RADIUS or self.kind == AsteroidKind.SMALL:
             return
