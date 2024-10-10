@@ -55,6 +55,9 @@ class Player(CircleShape):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * self.player_speed * dt
 
+        self.position.x = max(self.radius, min(SCREEN_WIDTH - self.radius, self.position.x))
+        self.position.y = max(self.radius, min(SCREEN_HEIGHT - self.radius, self.position.y))
+
     def shoot(self) -> None:
         if self.shoot_timer > 0:
             return
