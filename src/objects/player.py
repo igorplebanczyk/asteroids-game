@@ -1,7 +1,7 @@
 import pygame
 import time
 
-from src.objects.circleshape import CircleShape
+from src.objects.circle_shape import CircleShape
 from src.objects.constants import *
 from src.objects.shot import Shot
 

@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from src.objects.circleshape import CircleShape
+from src.objects.circle_shape import CircleShape
 
 
 class Explosion(CircleShape):

@@ -2,7 +2,7 @@ import random
 
 import pygame
 
-from src.objects.circleshape import CircleShape
+from src.objects.circle_shape import CircleShape
 from src.objects.constants import *
 from src.objects.explosion import Explosion
 

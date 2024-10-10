@@ -1,7 +1,7 @@
 import pygame
 
 from src.objects.asteroid import Asteroid
-from src.objects.astrofield import AsteroidField
+from src.objects.asteroid_field import AsteroidField
 from src.objects.constants import *
 from src.objects.explosion import Explosion
 from src.objects.player import Player
