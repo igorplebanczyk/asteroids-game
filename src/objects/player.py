@@ -1,4 +1,5 @@
 import pygame
+import time
 
 from src.objects.circleshape import CircleShape
 from src.objects.constants import *
@@ -12,6 +13,8 @@ class Player(CircleShape):
         self.containers = None
         self.shoot_timer: float = 0.0
         self.score: int = 0
+        self.lives: int = PLAYER_MAX_LIVES
+        self.block_update: bool = False
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -28,6 +31,8 @@ class Player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
 
     def update(self, dt) -> None:
+        if self.block_update: return
+
         self.shoot_timer -= dt
         keys = pygame.key.get_pressed()
 
@@ -56,3 +61,20 @@ class Player(CircleShape):
 
     def add_score(self, kind: AsteroidKind) -> None:
         self.score += kind.value[1]
+
+    def hit(self, asteroids: pygame.sprite.Group) -> None:
+        self.block_update = True
+
+        self.lives -= 1
+        self.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        self.velocity = pygame.Vector2(0, 0)
+        self.rotation = 0
+        self.shoot_timer = 0
+
+        for asteroid in asteroids:
+            asteroid.kill()
+
+        time.sleep(0.75)
+        self.block_update = False
+
+

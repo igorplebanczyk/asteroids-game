@@ -45,9 +45,11 @@ def start_game() -> None:
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
-                print("Game over!")
-                print(f"Score: {player.score}")
-                return
+                player.hit(asteroids)
+                if player.lives == 0:
+                    print("Game over!")
+                    print(f"Final score: {player.score}")
+                    return
 
             for shot in shots:
                 if asteroid.collides_with(shot):
@@ -61,6 +63,10 @@ def start_game() -> None:
         # Draw the score
         score_text = font.render(f"Score: {player.score}", True, "white")
         screen.blit(score_text, (10, 10))  # Position the score at (10, 10)
+
+        # Draw the lives
+        lives_text = font.render(f"Lives: {player.lives}", True, "white")
+        screen.blit(lives_text, (10, 50))
 
         dt = clock.tick(60) / 1000
         pygame.display.flip()
