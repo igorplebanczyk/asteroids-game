@@ -1,10 +1,10 @@
 import pygame
 
-from astrofield import AsteroidField
-from asteroid import Asteroid
-from constants import *
-from player import Player
-from shot import Shot
+from src.asteroid import Asteroid
+from src.astrofield import AsteroidField
+from src.constants import *
+from src.player import Player
+from src.shot import Shot
 
 
 def main() -> None:
@@ -53,7 +53,3 @@ def main() -> None:
 
         dt = clock.tick(60) / 1000
         pygame.display.flip()
-
-
-if __name__ == "__main__":
-    main()
