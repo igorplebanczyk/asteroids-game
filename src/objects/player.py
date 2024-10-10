@@ -15,6 +15,7 @@ class Player(CircleShape):
         self.score: int = 0
         self.lives: int = PLAYER_MAX_LIVES
         self.block_update: bool = False
+        self.player_speed: int = PLAYER_SPEED
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -46,10 +47,13 @@ class Player(CircleShape):
             self.move(-dt)
         if keys[pygame.K_SPACE]:
             self.shoot()
+        if keys[pygame.K_LSHIFT]:
+            self.player_speed = PLAYER_SPEED * 2
+
 
     def move(self, dt) -> None:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        self.position += forward * PLAYER_SPEED * dt
+        self.position += forward * self.player_speed * dt
 
     def shoot(self) -> None:
         if self.shoot_timer > 0:
