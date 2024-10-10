@@ -7,8 +7,9 @@ from src.objects.constants import *
 
 
 class Asteroid(CircleShape):
-    def __init__(self, x, y, radius):
+    def __init__(self, x, y, radius, kind):
         super().__init__(x, y, radius)
+        self.kind: AsteroidKind = kind
 
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, self.radius, 2)
@@ -19,7 +20,7 @@ class Asteroid(CircleShape):
     def split(self):
         self.kill()
 
-        if self.radius < ASTEROID_MIN_RADIUS:
+        if self.radius < ASTEROID_MIN_RADIUS or self.kind == AsteroidKind.SMALL:
             return
 
         angle = random.uniform(20, 50)
@@ -27,6 +28,13 @@ class Asteroid(CircleShape):
         vector2 = self.velocity.rotate(-angle)
 
         radius = self.radius - ASTEROID_MIN_RADIUS
+        new_kind = None
 
-        Asteroid(self.position.x, self.position.y, radius).velocity = vector1 * 1.2
-        Asteroid(self.position.x, self.position.y, radius).velocity = vector2 * 1.2
+        match self.kind:
+            case AsteroidKind.LARGE:
+                new_kind = AsteroidKind.MEDIUM
+            case AsteroidKind.MEDIUM:
+                new_kind = AsteroidKind.SMALL
+
+        Asteroid(self.position.x, self.position.y, radius, new_kind).velocity = vector1 * 1.2
+        Asteroid(self.position.x, self.position.y, radius, new_kind).velocity = vector2 * 1.2

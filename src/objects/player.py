@@ -11,6 +11,7 @@ class Player(CircleShape):
         self.rotation: float = 0.0
         self.containers = None
         self.shoot_timer: float = 0.0
+        self.score: int = 0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -52,3 +53,6 @@ class Player(CircleShape):
 
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+
+    def add_score(self, kind: AsteroidKind) -> None:
+        self.score += kind.value[1]
