@@ -12,6 +12,8 @@ class AsteroidKind(Enum):
     MEDIUM = (2, 100)
     LARGE = (3, 250)
 
+ASTEROID_COLORS = ["gray", "dim gray", "dark gray"]
+
 PLAYER_RADIUS = 20
 PLAYER_TURN_SPEED = 300
 PLAYER_SPEED = 200

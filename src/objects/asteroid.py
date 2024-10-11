@@ -10,6 +10,7 @@ class Asteroid(CircleShape):
         super().__init__(x, y, radius)
         self.kind: AsteroidKind = kind
         self.vertices = self.generate_rugged_shape()
+        self.color = random.choice(ASTEROID_COLORS)
 
     def generate_rugged_shape(self):
         # Generate a list of points that will form a rough-edged polygon
@@ -34,7 +35,7 @@ class Asteroid(CircleShape):
 
     def draw(self, screen):
         # Draw the asteroid as a polygon using the rugged vertices
-        pygame.draw.polygon(screen, "white", self.vertices, 2)
+        pygame.draw.polygon(screen, self.color, self.vertices, 0)
 
     def update(self, dt):
         # Move the asteroid and also update its vertices to match the new position
