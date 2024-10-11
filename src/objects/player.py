@@ -80,6 +80,8 @@ class Player(CircleShape):
         for asteroid in asteroids:
             asteroid.kill()
 
+        time.sleep(PLAYER_RESPAWN_COOLDOWN)
+
         self.block_update = False
 
 
