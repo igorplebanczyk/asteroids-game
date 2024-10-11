@@ -7,17 +7,16 @@ from src.objects.shot import Shot
 
 
 class Player(CircleShape):
-    def __init__(self, x, y) -> None:
+    def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation: float = 0.0
-        self.containers = None
         self.shoot_timer: float = 0.0
         self.score: int = 0
         self.lives: int = PLAYER_MAX_LIVES
         self.block_update: bool = False
         self.player_speed: int = PLAYER_SPEED
 
-    def triangle(self):
+    def triangle(self) -> list[pygame.Vector2]:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
         a = self.position + forward * self.radius
@@ -25,13 +24,13 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
 
-    def draw(self, screen) -> None:
-        pygame.draw.polygon(screen, "white", self.triangle(), 0)
+    def draw(self, screen: pygame.display) -> None:
+        pygame.draw.polygon(screen, PLAYER_COLOR, self.triangle(), 0)
 
-    def rotate(self, dt) -> None:
+    def rotate(self, dt: int) -> None:
         self.rotation += PLAYER_TURN_SPEED * dt
 
-    def update(self, dt) -> None:
+    def update(self, dt: int) -> None:
         if self.block_update: return
 
         self.shoot_timer -= dt
@@ -51,7 +50,7 @@ class Player(CircleShape):
             self.player_speed = PLAYER_SPEED * 2
 
 
-    def move(self, dt) -> None:
+    def move(self, dt: int) -> None:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * self.player_speed * dt
 
@@ -63,7 +62,7 @@ class Player(CircleShape):
             return
         self.shoot_timer = PLAYER_SHOOT_COOLDOWN
 
-        shot = Shot(self.position.x, self.position.y)
+        shot = Shot(int(self.position.x), int(self.position.y))
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
 
     def add_score(self, kind: AsteroidKind) -> None:
@@ -81,7 +80,6 @@ class Player(CircleShape):
         for asteroid in asteroids:
             asteroid.kill()
 
-        time.sleep(0.75)
         self.block_update = False
 
 

@@ -2,44 +2,39 @@ import pygame
 import random
 
 from src.objects.circle_shape import CircleShape
+from src.objects.constants import *
 
 
 class Explosion(CircleShape):
-    def __init__(self, x, y, radius):
+    def __init__(self, x: int, y: int, radius: int) -> None:
         super().__init__(x, y, radius)
-        self.life = 0.5
-        self.max_radius = radius
-        self.explosion_colors = [
-            (255, 69, 0),    # Orange-Red
-            (255, 140, 0),   # Dark Orange
-            (255, 215, 0),   # Gold
-            (255, 255, 0),   # Yellow
-        ]
+        self.life: float = 0.5
+        self.max_radius: int = radius
 
-    def update(self, dt):
+    def update(self, dt: int) -> None:
         self.life -= dt
         if self.life <= 0:
             self.kill()
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.display) -> None:
         # The explosion fades as life decreases
         alpha = int(255 * (self.life / 0.5))  # Fading from 255 to 0
 
         # The explosion progresses outwards by increasing the radius over time
         expansion_factor = 1 - (self.life / 0.5)  # Goes from 0 to 1 as life decreases
 
-        for i in range(8):
+        for i in range(EXPLOSION_CIRCLES_NUM):
             # Random radius factor for each circle in the explosion
-            radius_factor = random.uniform(0.3, 1.0)
+            radius_factor = random.uniform(*EXPLOSION_RANDOM_RADIUS_FACTOR)
             # Scale UP the radius over time
             current_radius = int(self.max_radius * radius_factor * expansion_factor)
 
             # Random color for each ring
-            color = random.choice(self.explosion_colors)
+            color = random.choice(EXPLOSION_COLORS)
 
             # Random origin offsets for each circle (small jitter)
-            x_offset = random.randint(-5, 5)
-            y_offset = random.randint(-5, 5)
+            x_offset = random.randint(*EXPLOSION_RANDOM_ORIGIN_OFFSET_CONSTRAINTS)
+            y_offset = random.randint(*EXPLOSION_RANDOM_ORIGIN_OFFSET_CONSTRAINTS)
 
             # Create a surface to draw on with per-pixel alpha transparency
             explosion_surface = pygame.Surface((self.max_radius * 2, self.max_radius * 2), pygame.SRCALPHA)

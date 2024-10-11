@@ -16,7 +16,7 @@ def start_game() -> None:
     pygame.display.set_caption("Asteroids")
 
     # Initialize font
-    font = pygame.font.Font(None, 36)  # None uses the default font, 36 is the font size
+    font = pygame.font.Font(None, FONT_SIZE)  # None uses the default font, 36 is the font size
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -64,11 +64,11 @@ def start_game() -> None:
 
         # Draw the score
         score_text = font.render(f"Score: {player.score}", True, "white")
-        screen.blit(score_text, (10, 10))  # Position the score at (10, 10)
+        screen.blit(score_text, SCORE_TEXT_POSITION)  # Position the score at (10, 10)
 
         # Draw the lives
         lives_text = font.render(f"Lives: {player.lives}", True, "white")
-        screen.blit(lives_text, (10, 50))
+        screen.blit(lives_text, LIVES_TEXT_POSITION)
 
-        dt = clock.tick(60) / 1000
+        dt = clock.tick(GAME_FPS) / 1000
         pygame.display.flip()

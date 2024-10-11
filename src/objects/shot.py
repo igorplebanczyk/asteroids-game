@@ -5,11 +5,11 @@ from src.objects.constants import *
 
 
 class Shot(CircleShape):
-    def __init__(self, x, y):
+    def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y, SHOT_RADIUS)
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, 2)
+    def draw(self, screen: pygame.display) -> None:
+        pygame.draw.circle(screen, SHOT_COLOR, self.position, self.radius, 0)
 
-    def update(self, dt):
+    def update(self, dt: int) -> None:
         self.position += self.velocity * dt
