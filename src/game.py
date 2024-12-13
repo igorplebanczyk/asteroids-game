@@ -8,67 +8,70 @@ from src.objects.player import Player
 from src.objects.shot import Shot
 
 
-def start_game() -> None:
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
+class Game:
+    def __init__(self) -> None:
+        pygame.init()
 
-    pygame.display.set_caption("Asteroids")
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.clock = pygame.time.Clock()
+        self.font = pygame.font.Font(None, FONT_SIZE)
 
-    # Initialize font
-    font = pygame.font.Font(None, FONT_SIZE)  # None uses the default font, 36 is the font size
+        pygame.display.set_caption("Asteroids")
 
-    updatable = pygame.sprite.Group()
-    drawable = pygame.sprite.Group()
-    asteroids = pygame.sprite.Group()
-    shots = pygame.sprite.Group()
+        self.updatable = pygame.sprite.Group()
+        self.drawable = pygame.sprite.Group()
+        self.asteroids = pygame.sprite.Group()
+        self.shots = pygame.sprite.Group()
 
-    Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = updatable
-    AsteroidField()
+        Asteroid.containers = (self.asteroids, self.updatable, self.drawable)
+        AsteroidField.containers = self.updatable
+        AsteroidField()
 
-    Player.containers = (updatable, drawable)
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        Player.containers = (self.updatable, self.drawable)
+        self.player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
-    Explosion.containers = (updatable, drawable)
-    Shot.containers = (shots, updatable, drawable)
+        Explosion.containers = (self.updatable, self.drawable)
+        Shot.containers = (self.shots, self.updatable, self.drawable)
 
-    dt = 0
+        self.dt = 0
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
+    def start(self) -> None:
+        self.loop()
+        pygame.quit()
 
-        screen.fill("black")
-
-        for obj in updatable:
-            obj.update(dt)
-
-        for asteroid in asteroids:
-            if asteroid.collides_with(player):
-                player.hit(asteroids)
-                if player.lives == 0:
-                    print("Game over!")
-                    print(f"Final score: {player.score}")
+    def loop(self) -> None:
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     return
 
-            for shot in shots:
-                if asteroid.collides_with(shot):
-                    asteroid.split()
-                    player.add_score(asteroid.kind)
-                    shot.kill()
+            self.screen.fill("black")
 
-        for obj in drawable:
-            obj.draw(screen)
+            for obj in self.updatable:
+                obj.update(self.dt)
 
-        # Draw the score
-        score_text = font.render(f"Score: {player.score}", True, "white")
-        screen.blit(score_text, SCORE_TEXT_POSITION)  # Position the score at (10, 10)
+            for asteroid in self.asteroids:
+                if asteroid.collides_with(self.player):
+                    self.player.hit(self.asteroids)
+                    if self.player.lives == 0:
+                        print("Game over!")
+                        print(f"Final score: {self.player.score}")
+                        return
 
-        # Draw the lives
-        lives_text = font.render(f"Lives: {player.lives}", True, "white")
-        screen.blit(lives_text, LIVES_TEXT_POSITION)
+                for shot in self.shots:
+                    if asteroid.collides_with(shot):
+                        asteroid.split()
+                        self.player.add_score(asteroid.kind)
+                        shot.kill()
 
-        dt = clock.tick(GAME_FPS) / 1000
-        pygame.display.flip()
+            for obj in self.drawable:
+                obj.draw(self.screen)
+
+            score_text = self.font.render(f"Score: {self.player.score}", True, "white")
+            self.screen.blit(score_text, SCORE_TEXT_POSITION)
+
+            lives_text = self.font.render(f"Lives: {self.player.lives}", True, "white")
+            self.screen.blit(lives_text, LIVES_TEXT_POSITION)
+
+            self.dt = self.clock.tick(GAME_FPS) / 1000
+            pygame.display.flip()
