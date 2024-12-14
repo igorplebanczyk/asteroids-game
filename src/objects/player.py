@@ -31,7 +31,8 @@ class Player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
 
     def update(self, dt: int) -> None:
-        if self.block_update: return
+        if self.block_update:
+            return
 
         self.shoot_timer -= dt
         keys = pygame.key.get_pressed()
@@ -49,13 +50,16 @@ class Player(CircleShape):
         if keys[pygame.K_LSHIFT]:
             self.player_speed = PLAYER_SPEED * 2
 
-
     def move(self, dt: int) -> None:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * self.player_speed * dt
 
-        self.position.x = max(self.radius, min(SCREEN_WIDTH - self.radius, self.position.x))
-        self.position.y = max(self.radius, min(SCREEN_HEIGHT - self.radius, self.position.y))
+        self.position.x = max(
+            self.radius, min(SCREEN_WIDTH - self.radius, self.position.x)
+        )
+        self.position.y = max(
+            self.radius, min(SCREEN_HEIGHT - self.radius, self.position.y)
+        )
 
     def shoot(self) -> None:
         if self.shoot_timer > 0:
@@ -83,5 +87,3 @@ class Player(CircleShape):
         time.sleep(PLAYER_RESPAWN_COOLDOWN)
 
         self.block_update = False
-
-

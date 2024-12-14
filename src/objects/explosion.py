@@ -37,14 +37,25 @@ class Explosion(CircleShape):
             y_offset = random.randint(*EXPLOSION_RANDOM_ORIGIN_OFFSET_CONSTRAINTS)
 
             # Create a surface to draw on with per-pixel alpha transparency
-            explosion_surface = pygame.Surface((self.max_radius * 2, self.max_radius * 2), pygame.SRCALPHA)
+            explosion_surface = pygame.Surface(
+                (self.max_radius * 2, self.max_radius * 2), pygame.SRCALPHA
+            )
             pygame.draw.circle(
                 explosion_surface,
                 (*color, alpha),  # Apply alpha for fading
-                (self.max_radius + x_offset, self.max_radius + y_offset),  # Draw with random offsets
+                (
+                    self.max_radius + x_offset,
+                    self.max_radius + y_offset,
+                ),  # Draw with random offsets
                 current_radius,
-                2
+                2,
             )
 
             # Blit the explosion surface onto the main screen at the correct position
-            screen.blit(explosion_surface, (self.position[0] - self.max_radius, self.position[1] - self.max_radius))
+            screen.blit(
+                explosion_surface,
+                (
+                    self.position[0] - self.max_radius,
+                    self.position[1] - self.max_radius,
+                ),
+            )
