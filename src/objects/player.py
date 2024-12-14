@@ -2,7 +2,19 @@ import pygame
 import time
 
 from src.objects.circle_shape import CircleShape
-from src.objects.constants import *
+from src.objects.constants import (
+    PLAYER_RADIUS,
+    PLAYER_MAX_LIVES,
+    PLAYER_SPEED,
+    PLAYER_COLOR,
+    PLAYER_TURN_SPEED,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    PLAYER_SHOOT_COOLDOWN,
+    PLAYER_SHOOT_SPEED,
+    AsteroidKind,
+    PLAYER_RESPAWN_COOLDOWN,
+)
 from src.objects.shot import Shot
 
 

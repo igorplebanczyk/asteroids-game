@@ -2,7 +2,12 @@ import pygame
 import random
 
 from src.objects.circle_shape import CircleShape
-from src.objects.constants import *
+from src.objects.constants import (
+    EXPLOSION_CIRCLES_NUM,
+    EXPLOSION_RANDOM_RADIUS_FACTOR,
+    EXPLOSION_COLORS,
+    EXPLOSION_RANDOM_ORIGIN_OFFSET_CONSTRAINTS,
+)
 
 
 class Explosion(CircleShape):

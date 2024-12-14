@@ -2,7 +2,14 @@ import random
 import pygame
 import math
 from src.objects.circle_shape import CircleShape
-from src.objects.constants import *
+from src.objects.constants import (
+    AsteroidKind,
+    ASTEROID_COLORS,
+    ASTEROID_RANDOM_NUM_VERTICES_CONSTRAINTS,
+    ASTEROID_RANDOM_RADIUS_FACTOR_CONSTRAINTS,
+    ASTEROID_RANDOM_SPLIT_ANGLE_CONSTRAINTS,
+    ASTEROID_MIN_RADIUS,
+)
 from src.objects.explosion import Explosion
 
 

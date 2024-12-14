@@ -2,7 +2,14 @@ import pygame
 
 from src.objects.asteroid import Asteroid
 from src.objects.asteroid_field import AsteroidField
-from src.objects.constants import *
+from src.objects.constants import (
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    GAME_FPS,
+    FONT_SIZE,
+    SCORE_TEXT_POSITION,
+    LIVES_TEXT_POSITION,
+)
 from src.objects.explosion import Explosion
 from src.objects.player import Player
 from src.objects.shot import Shot
