@@ -12,7 +12,7 @@ class Game:
     def __init__(self) -> None:
         pygame.init()
 
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME)
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, FONT_SIZE)
 
