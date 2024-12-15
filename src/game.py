@@ -12,6 +12,8 @@ from src.constants import (
     LIVES_POSITION,
     HEART_ICON_PATH,
     FONT_STYLE_PATH,
+    ASTEROID_BASE_SPEED_MIN,
+    ASTEROID_BASE_SPEED_MAX
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -44,7 +46,7 @@ class Game:
 
         Asteroid.containers = (self.asteroids, self.updatable, self.drawable)
         AsteroidField.containers = self.updatable
-        AsteroidField()
+        self.asteroid_field: AsteroidField = AsteroidField()
 
         Player.containers = (self.updatable, self.drawable)
         self.player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -70,6 +72,11 @@ class Game:
                     self.pause_menu.show()
 
             self.screen.fill("black")
+
+            self.asteroid_field.asteroid_speed_constraints = [
+                ASTEROID_BASE_SPEED_MIN + int(self.player.score // 1000 * 5),
+                ASTEROID_BASE_SPEED_MAX + int(self.player.score // 1000 * 7.5)
+            ]
 
             for obj in self.updatable:
                 obj.update(self.dt)
