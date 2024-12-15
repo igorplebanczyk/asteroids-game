@@ -3,7 +3,7 @@ import random
 import pygame
 
 from src.objects.asteroid import Asteroid
-from src.objects.constants import (
+from src.constants import (
     AsteroidKind,
     ASTEROID_MAX_RADIUS,
     ASTEROID_MIN_RADIUS,

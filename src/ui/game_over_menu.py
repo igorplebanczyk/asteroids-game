@@ -1,6 +1,6 @@
 import pygame
 
-from src.objects.constants import FONT_SIZE
+from src.constants import FONT_SIZE
 from src.objects.player import Player
 
 

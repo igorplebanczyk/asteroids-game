@@ -3,13 +3,14 @@ import pygame
 
 from src.objects.asteroid import Asteroid
 from src.objects.asteroid_field import AsteroidField
-from src.objects.constants import (
+from src.constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
     GAME_FPS,
     FONT_SIZE,
     SCORE_POSITION,
-    LIVES_POSITION, HEART_ICON_PATH,
+    LIVES_POSITION,
+    HEART_ICON_PATH,
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -27,7 +28,9 @@ class Game:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, FONT_SIZE)
 
-        self.heart_icon: pygame.Surface = pygame.image.load(HEART_ICON_PATH).convert_alpha()
+        self.heart_icon: pygame.Surface = pygame.image.load(
+            HEART_ICON_PATH
+        ).convert_alpha()
         self.heart_icon = pygame.transform.scale(self.heart_icon, (30, 30))
 
         pygame.display.set_caption("Asteroids")
@@ -107,7 +110,9 @@ class Game:
                 obj.draw(self.screen)
 
             for i in range(self.player.lives):
-                self.screen.blit(self.heart_icon, (LIVES_POSITION[0] + i * 35, LIVES_POSITION[1]))
+                self.screen.blit(
+                    self.heart_icon, (LIVES_POSITION[0] + i * 35, LIVES_POSITION[1])
+                )
 
             score_text = self.font.render(f"Score: {self.player.score}", True, "white")
             self.screen.blit(score_text, SCORE_POSITION)

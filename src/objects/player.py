@@ -2,7 +2,7 @@ import pygame
 import time
 
 from src.objects.collision_object import CollisionObject
-from src.objects.constants import (
+from src.constants import (
     PLAYER_RADIUS,
     PLAYER_MAX_LIVES,
     PLAYER_SPEED,

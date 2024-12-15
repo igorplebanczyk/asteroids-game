@@ -1,7 +1,7 @@
 import pygame
 
 from src.objects.collision_object import CollisionObject
-from src.objects.constants import SHOT_RADIUS, SHOT_COLOR
+from src.constants import SHOT_RADIUS, SHOT_COLOR
 
 
 class Shot(CollisionObject):

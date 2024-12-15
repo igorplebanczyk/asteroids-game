@@ -2,7 +2,7 @@ import pygame
 import random
 
 from src.objects.collision_object import CollisionObject
-from src.objects.constants import (
+from src.constants import (
     EXPLOSION_CIRCLES_NUM,
     EXPLOSION_RANDOM_RADIUS_FACTOR,
     EXPLOSION_COLORS,

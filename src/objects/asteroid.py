@@ -3,7 +3,7 @@ import pygame
 import math
 import time
 from src.objects.collision_object import CollisionObject
-from src.objects.constants import (
+from src.constants import (
     AsteroidKind,
     ASTEROID_COLORS,
     ASTEROID_RANDOM_NUM_VERTICES_CONSTRAINTS,
