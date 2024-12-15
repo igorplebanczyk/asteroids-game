@@ -4,12 +4,14 @@ Classic asteroids game implemented in Python using the [Pygame](https://www.pyga
 
 ## Features
 
-* Ship that can move and shoot
-* Asteroids that break into smaller asteroids when hit
-* Explosions when asteroids are hit
-* Random asteroid generation, with different sizes, shapes and colors
+* Ship that can move, shoot and accelerate
+* Asteroids that break into smaller asteroids when hit by the player shot or collide with each other
+* Explosions when asteroids are hit or collide
+* Asteroids gradually speed up as the player score rises
+* Random asteroid generation, with different sizes, shapes, colors and randomly placed craters
 * Score counter
 * Lives counter
+* Pause and game over menus
 
 ## Installation
 
@@ -46,6 +48,9 @@ Classic asteroids game implemented in Python using the [Pygame](https://www.pyga
 * [Background](https://www.behance.net/gallery/21896005/8-bit-Night)
 * [Heart](https://static.vecteezy.com/system/resources/thumbnails/027/517/564/small/pixel-cartoon-heart-icon-illustration-png.png)
 * [Spaceship](https://www.nicepng.com/downpng/u2q8a9y3a9r5i1r5_vector-spaces-ship-8-bit-spaceship-sprite/)
+
+## License
+This project is licensed under the MIT License - see [LICENSE](https://github.com/igorplebanczyk/asteroids-game/blob/main/LICENSE).
 
 ## Notes
 * Recommended python version: `3.10` or higher
