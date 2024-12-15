@@ -14,6 +14,7 @@ from src.objects.constants import (
 from src.objects.explosion import Explosion
 from src.objects.player import Player
 from src.objects.shot import Shot
+from src.ui.game_over_menu import GameOverMenu
 
 
 class Game:
@@ -64,8 +65,8 @@ class Game:
                 if asteroid.collides_with(self.player):
                     self.player.hit(self.asteroids)
                     if self.player.lives == 0:
-                        print("Game over!")
-                        print(f"Final score: {self.player.score}")
+                        game_over_menu = GameOverMenu(self.screen, self.player)
+                        game_over_menu.loop()
                         return
 
                 for shot in self.shots:
