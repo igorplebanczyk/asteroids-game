@@ -45,6 +45,3 @@ Classic asteroids game implemented in Python using the [Pygame](https://www.pyga
 * Recommended python version: `3.10` or higher
 * Originally designed as part of a guided project on [boot.dev](https://www.boot.dev/lessons/5be3e3bd-efb5-4664-a9e9-7111be783271), but has since been significantly improved
 * It was primarily built as a learning exercise
-* TODO:
-    * Make hitboxes match the actual shape
-    * Add a nicer background
