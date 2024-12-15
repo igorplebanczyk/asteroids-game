@@ -13,7 +13,8 @@ from src.constants import (
     HEART_ICON_PATH,
     FONT_STYLE_PATH,
     ASTEROID_BASE_SPEED_MIN,
-    ASTEROID_BASE_SPEED_MAX, BACKGROUND_PATH,
+    ASTEROID_BASE_SPEED_MAX,
+    BACKGROUND_PATH,
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -30,7 +31,9 @@ class Game:
             (SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME
         )
         self.background = pygame.image.load(BACKGROUND_PATH)
-        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.background = pygame.transform.scale(
+            self.background, (SCREEN_WIDTH, SCREEN_HEIGHT)
+        )
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
 
@@ -92,7 +95,9 @@ class Game:
                 if asteroid.collides_with(self.player):
                     self.player.hit(self.asteroids)
                     if self.player.lives == 0:
-                        game_over_menu = GameOverMenu(self.screen, self.player, self.restart)
+                        game_over_menu = GameOverMenu(
+                            self.screen, self.player, self.restart
+                        )
                         game_over_menu.loop()
                         return
 

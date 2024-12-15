@@ -17,10 +17,14 @@ from src.objects.player import Player
 
 
 class GameOverMenu:
-    def __init__(self, screen: pygame.display, player: Player, restart: callable) -> None:
+    def __init__(
+        self, screen: pygame.display, player: Player, restart: callable
+    ) -> None:
         self.screen: pygame.display = screen
         self.background = pygame.image.load(BACKGROUND_PATH)
-        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.background = pygame.transform.scale(
+            self.background, (SCREEN_WIDTH, SCREEN_HEIGHT)
+        )
         self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
         self.large_font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE * 2)
         self.player: Player = player
@@ -32,7 +36,9 @@ class GameOverMenu:
         )
         self.exit_button_rect: pygame.Rect = pygame.Rect(
             self.screen.get_width() // 2 + GAME_OVER_BUTTON_CENTER_LEFT_OFFSET,
-            self.screen.get_height() // 2 + GAME_OVER_BUTTON_CENTER_HEIGHT_OFFSET * 1.5 + GAME_OVER_BUTTON_HEIGHT,
+            self.screen.get_height() // 2
+            + GAME_OVER_BUTTON_CENTER_HEIGHT_OFFSET * 1.5
+            + GAME_OVER_BUTTON_HEIGHT,
             GAME_OVER_BUTTON_WIDTH,
             GAME_OVER_BUTTON_HEIGHT,
         )
@@ -64,7 +70,9 @@ class GameOverMenu:
 
         pygame.draw.rect(self.screen, "white", self.restart_button_rect)
         restart_text = self.font.render("Restart", True, "black")
-        restart_text_rect = restart_text.get_rect(center=self.restart_button_rect.center)
+        restart_text_rect = restart_text.get_rect(
+            center=self.restart_button_rect.center
+        )
         self.screen.blit(restart_text, restart_text_rect)
 
         pygame.draw.rect(self.screen, "white", self.exit_button_rect)

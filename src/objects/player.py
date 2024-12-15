@@ -3,10 +3,9 @@ import time
 
 from src.objects.collision_object import CollisionObject
 from src.constants import (
-    PLAYER_RADIUS,
+    PLAYER_SIZE,
     PLAYER_MAX_LIVES,
     PLAYER_SPEED,
-    PLAYER_COLOR,
     PLAYER_TURN_SPEED,
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
@@ -14,30 +13,29 @@ from src.constants import (
     PLAYER_SHOOT_SPEED,
     AsteroidKind,
     PLAYER_RESPAWN_COOLDOWN,
+    PLAYER_IMAGE_PATH,
 )
 from src.objects.shot import Shot
 
 
 class Player(CollisionObject):
     def __init__(self, x: int, y: int) -> None:
-        super().__init__(x, y, PLAYER_RADIUS)
+        super().__init__(x, y, PLAYER_SIZE)
         self.rotation: float = 0.0
         self.shoot_timer: float = 0.0
         self.score: int = 0
         self.lives: int = PLAYER_MAX_LIVES
         self.block_update: bool = False
         self.player_speed: int = PLAYER_SPEED
+        self.image: pygame.Surface = pygame.image.load(PLAYER_IMAGE_PATH)
+        self.image = pygame.transform.scale(
+            self.image, (2 * PLAYER_SIZE, 2 * PLAYER_SIZE)
+        )
 
-    def triangle(self) -> list[pygame.Vector2]:
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
-        a = self.position + forward * self.radius
-        b = self.position - forward * self.radius - right
-        c = self.position - forward * self.radius + right
-        return [a, b, c]
-
-    def draw(self, screen: pygame.display) -> None:
-        pygame.draw.polygon(screen, PLAYER_COLOR, self.triangle(), 0)
+    def draw(self, screen: pygame.Surface) -> None:
+        rotated_image = pygame.transform.rotate(self.image, -self.rotation)
+        rect = rotated_image.get_rect(center=(self.position.x, self.position.y))
+        screen.blit(rotated_image, rect.topleft)
 
     def rotate(self, dt: int) -> None:
         self.rotation += PLAYER_TURN_SPEED * dt
@@ -63,7 +61,7 @@ class Player(CollisionObject):
             self.player_speed = PLAYER_SPEED * 2
 
     def move(self, dt: int) -> None:
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        forward = pygame.Vector2(0, -1).rotate(self.rotation)
         self.position += forward * self.player_speed * dt
 
         self.position.x = max(
@@ -79,7 +77,7 @@ class Player(CollisionObject):
         self.shoot_timer = PLAYER_SHOOT_COOLDOWN
 
         shot = Shot(int(self.position.x), int(self.position.y))
-        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+        shot.velocity = pygame.Vector2(0, -1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
 
     def add_score(self, kind: AsteroidKind) -> None:
         self.score += kind.value[1]
