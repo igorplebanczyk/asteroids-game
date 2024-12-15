@@ -13,7 +13,7 @@ from src.constants import (
 
 
 class PauseMenu:
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, restart: callable):
         self.screen: pygame.Surface = screen
         self.menu_panel: pygame.Rect = pygame.Rect(
             (self.screen.get_width() - PAUSE_MENU_PANEL_WIDTH) // 2,
@@ -22,6 +22,7 @@ class PauseMenu:
             PAUSE_MENU_PANEL_HEIGHT,
         )
         self.is_visible: bool = False
+        self.restart: callable = restart
 
         self.button_width = PAUSE_MENU_PANEL_WIDTH - PAUSE_MENU_BUTTON_WIDTH_OFFSET
         self.button_height = PAUSE_MENU_BUTTON_HEIGHT
@@ -31,11 +32,19 @@ class PauseMenu:
             self.button_width,
             self.button_height,
         )
-        self.exit_button: pygame.Rect = pygame.Rect(
+        self.restart_button: pygame.Rect = pygame.Rect(
             self.menu_panel.left + PAUSE_MENU_BUTTON_LEFT_OFFSET,
             self.menu_panel.top
             + PAUSE_MENU_BUTTON_TOP_BASE_OFFSET
             + PAUSE_MENU_BUTTON_TOP_CONSECUTIVE_OFFSET,
+            self.button_width,
+            self.button_height,
+        )
+        self.exit_button: pygame.Rect = pygame.Rect(
+            self.menu_panel.left + PAUSE_MENU_BUTTON_LEFT_OFFSET,
+            self.menu_panel.top
+            + PAUSE_MENU_BUTTON_TOP_BASE_OFFSET
+            + PAUSE_MENU_BUTTON_TOP_CONSECUTIVE_OFFSET * 2,
             self.button_width,
             self.button_height,
         )
@@ -45,16 +54,20 @@ class PauseMenu:
         pygame.draw.rect(self.screen, "white", self.menu_panel, width=2)
 
         pygame.draw.rect(self.screen, "white", self.resume_button)
+        pygame.draw.rect(self.screen, "white", self.restart_button)
         pygame.draw.rect(self.screen, "white", self.exit_button)
 
         font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
         resume_text = font.render("Resume", True, "black")
+        restart_text = font.render("Restart", True, "black")
         exit_text = font.render("Exit", True, "black")
 
         resume_text_rect = resume_text.get_rect(center=self.resume_button.center)
+        restart_text_rect = restart_text.get_rect(center=self.restart_button.center)
         exit_text_rect = exit_text.get_rect(center=self.exit_button.center)
 
         self.screen.blit(resume_text, resume_text_rect)
+        self.screen.blit(restart_text, restart_text_rect)
         self.screen.blit(exit_text, exit_text_rect)
 
     def show(self) -> None:
@@ -74,6 +87,11 @@ class PauseMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.resume_button.collidepoint(event.pos):
                         self.is_visible = False
+                        return
+
+                    if self.restart_button.collidepoint(event.pos):
+                        self.is_visible = False
+                        self.restart()
                         return
 
                     if self.exit_button.collidepoint(event.pos):

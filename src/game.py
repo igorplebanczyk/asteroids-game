@@ -58,11 +58,16 @@ class Game:
 
         self.dt = 0
 
-        self.pause_menu: PauseMenu = PauseMenu(self.screen)
+        self.pause_menu: PauseMenu = PauseMenu(self.screen, self.restart)
 
     def start(self) -> None:
         self.loop()
         pygame.quit()
+
+    def restart(self) -> None:
+        pygame.quit()
+        self.__init__()
+        self.start()
 
     def loop(self) -> None:
         while True:
@@ -87,7 +92,7 @@ class Game:
                 if asteroid.collides_with(self.player):
                     self.player.hit(self.asteroids)
                     if self.player.lives == 0:
-                        game_over_menu = GameOverMenu(self.screen, self.player)
+                        game_over_menu = GameOverMenu(self.screen, self.player, self.restart)
                         game_over_menu.loop()
                         return
 
