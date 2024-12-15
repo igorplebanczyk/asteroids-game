@@ -125,7 +125,8 @@ class Game:
 
                     if (
                         time.time() - asteroid.spawned_at < ASTEROID_IMMUNITY_COOLDOWN
-                        or time.time() - other_asteroid.spawned_at < ASTEROID_IMMUNITY_COOLDOWN
+                        or time.time() - other_asteroid.spawned_at
+                        < ASTEROID_IMMUNITY_COOLDOWN
                     ):
                         continue
 

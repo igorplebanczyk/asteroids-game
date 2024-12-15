@@ -28,7 +28,9 @@ class Asteroid(CollisionObject):
 
     @staticmethod
     def darken_color(color: tuple) -> tuple:
-        return tuple(max(int(c * ASTEROID_CRATER_DARKEN_BY), 0) for c in pygame.Color(color))
+        return tuple(
+            max(int(c * ASTEROID_CRATER_DARKEN_BY), 0) for c in pygame.Color(color)
+        )
 
     def generate_craters(self) -> list[tuple]:
         craters = []
@@ -37,7 +39,9 @@ class Asteroid(CollisionObject):
         base_angle_step = 2 * math.pi / num_craters
         for i in range(num_craters):
             base_angle = i * base_angle_step
-            angle = base_angle + random.uniform(-base_angle_step * 0.25, base_angle_step * 0.25)
+            angle = base_angle + random.uniform(
+                -base_angle_step * 0.25, base_angle_step * 0.25
+            )
 
             distance_from_center = random.uniform(0.25 * self.radius, self.radius)
             crater_radius = random.uniform(0.125 * self.radius, 0.25 * self.radius)
@@ -73,7 +77,12 @@ class Asteroid(CollisionObject):
         pygame.draw.polygon(screen, self.color, self.vertices, 0)
 
         for crater_x, crater_y, crater_radius in self.craters:
-            pygame.draw.circle(screen, self.crater_color, (int(crater_x), int(crater_y)), int(crater_radius))
+            pygame.draw.circle(
+                screen,
+                self.crater_color,
+                (int(crater_x), int(crater_y)),
+                int(crater_radius),
+            )
 
     def update(self, dt: int) -> None:
         self.position += self.velocity * dt

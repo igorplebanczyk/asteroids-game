@@ -38,9 +38,11 @@ ASTEROID_RANDOM_SPLIT_ANGLE_CONSTRAINTS = (
     20,
     50,
 )  # Random angle in which split asteroids will move
-ASTEROID_IMMUNITY_COOLDOWN = 1.0 # Time in seconds during which newly spawned asteroids cannot collide with each other
+ASTEROID_IMMUNITY_COOLDOWN = 1.0  # Time in seconds during which newly spawned asteroids cannot collide with each other
 ASTEROID_NUM_CRATERS_CONSTRAINTS = (4, 7)
-ASTEROID_CRATER_DARKEN_BY = 0.8 # Factor by which each color will be darkened (0.8 means 20%)
+ASTEROID_CRATER_DARKEN_BY = (
+    0.8  # Factor by which each color will be darkened (0.8 means 20%)
+)
 
 PLAYER_SIZE = 25
 PLAYER_TURN_SPEED = 300
