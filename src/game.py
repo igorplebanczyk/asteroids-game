@@ -8,8 +8,8 @@ from src.objects.constants import (
     SCREEN_HEIGHT,
     GAME_FPS,
     FONT_SIZE,
-    SCORE_TEXT_POSITION,
-    LIVES_TEXT_POSITION,
+    SCORE_POSITION,
+    LIVES_POSITION, HEART_ICON_PATH,
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -26,6 +26,9 @@ class Game:
         )
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, FONT_SIZE)
+
+        self.heart_icon: pygame.Surface = pygame.image.load(HEART_ICON_PATH).convert_alpha()
+        self.heart_icon = pygame.transform.scale(self.heart_icon, (30, 30))
 
         pygame.display.set_caption("Asteroids")
 
@@ -103,11 +106,11 @@ class Game:
             for obj in self.drawable:
                 obj.draw(self.screen)
 
-            score_text = self.font.render(f"Score: {self.player.score}", True, "white")
-            self.screen.blit(score_text, SCORE_TEXT_POSITION)
+            for i in range(self.player.lives):
+                self.screen.blit(self.heart_icon, (LIVES_POSITION[0] + i * 35, LIVES_POSITION[1]))
 
-            lives_text = self.font.render(f"Lives: {self.player.lives}", True, "white")
-            self.screen.blit(lives_text, LIVES_TEXT_POSITION)
+            score_text = self.font.render(f"Score: {self.player.score}", True, "white")
+            self.screen.blit(score_text, SCORE_POSITION)
 
             self.dt = self.clock.tick(GAME_FPS) / 1000
             pygame.display.flip()
