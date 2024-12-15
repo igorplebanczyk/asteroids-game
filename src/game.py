@@ -11,6 +11,7 @@ from src.constants import (
     SCORE_POSITION,
     LIVES_POSITION,
     HEART_ICON_PATH,
+    FONT_STYLE_PATH,
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -26,7 +27,7 @@ class Game:
             (SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME
         )
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font(None, FONT_SIZE)
+        self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
 
         self.heart_icon: pygame.Surface = pygame.image.load(
             HEART_ICON_PATH

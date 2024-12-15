@@ -1,20 +1,29 @@
 import pygame
 
-from src.constants import FONT_SIZE
+from src.constants import (
+    FONT_SIZE,
+    FONT_STYLE_PATH,
+    GAME_OVER_TEXT_CENTER_HEIGHT_OFFSET,
+    GAME_OVER_FINAL_SCORE_CENTER_HEIGHT_OFFSET,
+    GAME_OVER_EXIT_BUTTON_CENTER_LEFT_OFFSET,
+    GAME_OVER_EXIT_BUTTON_CENTER_HEIGHT_OFFSET,
+    GAME_OVER_EXIT_BUTTON_WIDTH,
+    GAME_OVER_EXIT_BUTTON_HEIGHT,
+)
 from src.objects.player import Player
 
 
 class GameOverMenu:
     def __init__(self, screen: pygame.display, player: Player) -> None:
         self.screen: pygame.display = screen
-        self.font = pygame.font.Font(None, FONT_SIZE)
-        self.large_font = pygame.font.Font(None, FONT_SIZE * 2)
+        self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
+        self.large_font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE * 2)
         self.player: Player = player
         self.exit_button_rect = pygame.Rect(
-            self.screen.get_width() // 2 - 100,
-            self.screen.get_height() // 2 + 100,
-            200,
-            50,
+            self.screen.get_width() // 2 + GAME_OVER_EXIT_BUTTON_CENTER_LEFT_OFFSET,
+            self.screen.get_height() // 2 + GAME_OVER_EXIT_BUTTON_CENTER_HEIGHT_OFFSET,
+            GAME_OVER_EXIT_BUTTON_WIDTH,
+            GAME_OVER_EXIT_BUTTON_HEIGHT,
         )
 
     def draw(self) -> None:
@@ -22,7 +31,10 @@ class GameOverMenu:
 
         game_over_text = self.large_font.render("GAME OVER", True, "red")
         text_rect = game_over_text.get_rect(
-            center=(self.screen.get_width() // 2, self.screen.get_height() // 2 - 100)
+            center=(
+                self.screen.get_width() // 2,
+                self.screen.get_height() // 2 + GAME_OVER_TEXT_CENTER_HEIGHT_OFFSET,
+            )
         )
         self.screen.blit(game_over_text, text_rect)
 
@@ -30,7 +42,11 @@ class GameOverMenu:
             f"Final Score: {self.player.score}", True, "white"
         )
         score_rect = final_score_text.get_rect(
-            center=(self.screen.get_width() // 2, self.screen.get_height() // 2)
+            center=(
+                self.screen.get_width() // 2,
+                self.screen.get_height() // 2
+                + GAME_OVER_FINAL_SCORE_CENTER_HEIGHT_OFFSET,
+            )
         )
         self.screen.blit(final_score_text, score_rect)
 
