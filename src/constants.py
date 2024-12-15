@@ -13,6 +13,7 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 FONT_SIZE = 28
 FONT_STYLE_PATH = "asteroids-game/assets/pixeloid_sans.ttf"
+BACKGROUND_PATH = "asteroids-game/assets/starry_sky.png"
 
 HEART_ICON_PATH = "asteroids-game/assets/heart_icon.png"
 LIVES_POSITION = (10, 10)

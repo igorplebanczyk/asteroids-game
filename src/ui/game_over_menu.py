@@ -9,6 +9,9 @@ from src.constants import (
     GAME_OVER_EXIT_BUTTON_CENTER_HEIGHT_OFFSET,
     GAME_OVER_EXIT_BUTTON_WIDTH,
     GAME_OVER_EXIT_BUTTON_HEIGHT,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    BACKGROUND_PATH,
 )
 from src.objects.player import Player
 
@@ -16,6 +19,8 @@ from src.objects.player import Player
 class GameOverMenu:
     def __init__(self, screen: pygame.display, player: Player) -> None:
         self.screen: pygame.display = screen
+        self.background = pygame.image.load(BACKGROUND_PATH)
+        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
         self.large_font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE * 2)
         self.player: Player = player
@@ -27,7 +32,7 @@ class GameOverMenu:
         )
 
     def draw(self) -> None:
-        self.screen.fill("black")
+        self.screen.blit(self.background, (0, 0))
 
         game_over_text = self.large_font.render("GAME OVER", True, "red")
         text_rect = game_over_text.get_rect(

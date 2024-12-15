@@ -41,6 +41,11 @@ Classic asteroids game implemented in Python using the [Pygame](https://www.pyga
 
 * Game properties can be modified in the `constants.py` file
 
+## Assets
+
+* [Background](https://www.behance.net/gallery/21896005/8-bit-Night)
+* [Heart](https://static.vecteezy.com/system/resources/thumbnails/027/517/564/small/pixel-cartoon-heart-icon-illustration-png.png)
+
 ## Notes
 * Recommended python version: `3.10` or higher
 * Originally designed as part of a guided project on [boot.dev](https://www.boot.dev/lessons/5be3e3bd-efb5-4664-a9e9-7111be783271), but has since been significantly improved

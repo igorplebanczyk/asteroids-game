@@ -13,7 +13,7 @@ from src.constants import (
     HEART_ICON_PATH,
     FONT_STYLE_PATH,
     ASTEROID_BASE_SPEED_MIN,
-    ASTEROID_BASE_SPEED_MAX
+    ASTEROID_BASE_SPEED_MAX, BACKGROUND_PATH,
 )
 from src.objects.explosion import Explosion
 from src.objects.player import Player
@@ -29,6 +29,8 @@ class Game:
         self.screen = pygame.display.set_mode(
             (SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME
         )
+        self.background = pygame.image.load(BACKGROUND_PATH)
+        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
 
@@ -71,11 +73,11 @@ class Game:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     self.pause_menu.show()
 
-            self.screen.fill("black")
+            self.screen.blit(self.background, (0, 0))
 
             self.asteroid_field.asteroid_speed_constraints = [
                 ASTEROID_BASE_SPEED_MIN + int(self.player.score // 1000 * 5),
-                ASTEROID_BASE_SPEED_MAX + int(self.player.score // 1000 * 7.5)
+                ASTEROID_BASE_SPEED_MAX + int(self.player.score // 1000 * 7.5),
             ]
 
             for obj in self.updatable:
