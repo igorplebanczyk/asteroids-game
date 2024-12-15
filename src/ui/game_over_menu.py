@@ -19,7 +19,7 @@ class GameOverMenu:
         self.font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE)
         self.large_font = pygame.font.Font(FONT_STYLE_PATH, FONT_SIZE * 2)
         self.player: Player = player
-        self.exit_button_rect = pygame.Rect(
+        self.exit_button_rect: pygame.Rect = pygame.Rect(
             self.screen.get_width() // 2 + GAME_OVER_EXIT_BUTTON_CENTER_LEFT_OFFSET,
             self.screen.get_height() // 2 + GAME_OVER_EXIT_BUTTON_CENTER_HEIGHT_OFFSET,
             GAME_OVER_EXIT_BUTTON_WIDTH,

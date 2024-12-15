@@ -17,6 +17,7 @@ from src.objects.explosion import Explosion
 from src.objects.player import Player
 from src.objects.shot import Shot
 from src.ui.game_over_menu import GameOverMenu
+from src.ui.pause_menu import PauseMenu
 
 
 class Game:
@@ -53,6 +54,8 @@ class Game:
 
         self.dt = 0
 
+        self.pause_menu: PauseMenu = PauseMenu(self.screen)
+
     def start(self) -> None:
         self.loop()
         pygame.quit()
@@ -62,6 +65,9 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    self.pause_menu.show()
 
             self.screen.fill("black")
 
