@@ -1,3 +1,4 @@
+import time
 import pygame
 
 from src.objects.asteroid import Asteroid
@@ -72,6 +73,31 @@ class Game:
                         asteroid.split()
                         self.player.add_score(asteroid.kind)
                         shot.kill()
+
+                for other_asteroid in self.asteroids:
+                    if asteroid == other_asteroid:
+                        continue
+
+                    if asteroid.position.distance_to(other_asteroid.position) < 0:
+                        continue
+
+                    if (
+                        asteroid.position.x > SCREEN_WIDTH
+                        or asteroid.position.y > SCREEN_HEIGHT
+                        or asteroid.position.x < 0
+                        or asteroid.position.y < 0
+                    ):
+                        continue
+
+                    if (
+                        time.time() - asteroid.spawned_at < 1.5
+                        or time.time() - other_asteroid.spawned_at < 1.5
+                    ):
+                        continue
+
+                    if asteroid.collides_with(other_asteroid):
+                        asteroid.split()
+                        other_asteroid.split()
 
             for obj in self.drawable:
                 obj.draw(self.screen)

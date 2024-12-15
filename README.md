@@ -48,4 +48,3 @@ Classic asteroids game implemented in Python using the [Pygame](https://www.pyga
 * TODO:
     * Make hitboxes match the actual shape
     * Add a nicer background
-    * Make asteroids bounce off each other
