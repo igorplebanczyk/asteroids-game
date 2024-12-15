@@ -10,6 +10,8 @@ from src.constants import (
     ASTEROID_RANDOM_RADIUS_FACTOR_CONSTRAINTS,
     ASTEROID_RANDOM_SPLIT_ANGLE_CONSTRAINTS,
     ASTEROID_MIN_RADIUS,
+    ASTEROID_NUM_CRATERS_CONSTRAINTS,
+    ASTEROID_CRATER_DARKEN_BY,
 )
 from src.objects.explosion import Explosion
 
@@ -19,8 +21,33 @@ class Asteroid(CollisionObject):
         super().__init__(x, y, radius)
         self.kind: AsteroidKind = kind
         self.vertices: list[tuple] = self.generate_rugged_shape()
-        self.color: str = random.choice(ASTEROID_COLORS)
+        self.color: tuple = random.choice(ASTEROID_COLORS)
+        self.crater_color: tuple = self.darken_color(self.color)
+        self.craters: list[tuple] = self.generate_craters()
         self.spawned_at: time = time.time()
+
+    @staticmethod
+    def darken_color(color: tuple) -> tuple:
+        return tuple(max(int(c * ASTEROID_CRATER_DARKEN_BY), 0) for c in pygame.Color(color))
+
+    def generate_craters(self) -> list[tuple]:
+        craters = []
+        num_craters = random.randint(*ASTEROID_NUM_CRATERS_CONSTRAINTS)
+
+        base_angle_step = 2 * math.pi / num_craters
+        for i in range(num_craters):
+            base_angle = i * base_angle_step
+            angle = base_angle + random.uniform(-base_angle_step * 0.25, base_angle_step * 0.25)
+
+            distance_from_center = random.uniform(0.25 * self.radius, self.radius)
+            crater_radius = random.uniform(0.125 * self.radius, 0.25 * self.radius)
+
+            x = self.position.x + distance_from_center * math.cos(angle)
+            y = self.position.y + distance_from_center * math.sin(angle)
+
+            craters.append((x, y, crater_radius))
+
+        return craters
 
     def generate_rugged_shape(self) -> list[tuple]:
         num_points = random.randint(*ASTEROID_RANDOM_NUM_VERTICES_CONSTRAINTS)
@@ -45,11 +72,18 @@ class Asteroid(CollisionObject):
     def draw(self, screen: pygame.display) -> None:
         pygame.draw.polygon(screen, self.color, self.vertices, 0)
 
+        for crater_x, crater_y, crater_radius in self.craters:
+            pygame.draw.circle(screen, self.crater_color, (int(crater_x), int(crater_y)), int(crater_radius))
+
     def update(self, dt: int) -> None:
         self.position += self.velocity * dt
         self.vertices = [
             (x + self.velocity.x * dt, y + self.velocity.y * dt)
             for x, y in self.vertices
+        ]
+        self.craters = [
+            (x + self.velocity.x * dt, y + self.velocity.y * dt, r)
+            for x, y, r in self.craters
         ]
 
     def split(self) -> None:

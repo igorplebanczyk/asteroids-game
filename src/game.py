@@ -14,6 +14,7 @@ from src.constants import (
     FONT_STYLE_PATH,
     ASTEROID_BASE_SPEED_MIN,
     ASTEROID_BASE_SPEED_MAX,
+    ASTEROID_IMMUNITY_COOLDOWN,
     BACKGROUND_PATH,
 )
 from src.objects.explosion import Explosion
@@ -123,8 +124,8 @@ class Game:
                         continue
 
                     if (
-                        time.time() - asteroid.spawned_at < 1.5
-                        or time.time() - other_asteroid.spawned_at < 1.5
+                        time.time() - asteroid.spawned_at < ASTEROID_IMMUNITY_COOLDOWN
+                        or time.time() - other_asteroid.spawned_at < ASTEROID_IMMUNITY_COOLDOWN
                     ):
                         continue
 

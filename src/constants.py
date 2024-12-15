@@ -25,19 +25,22 @@ ASTEROID_SPAWN_RATE = 0.8  # seconds
 ASTEROID_BASE_SPEED_MIN = 40
 ASTEROID_BASE_SPEED_MAX = 100
 ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
-ASTEROID_COLORS = ["gray", "dim gray", "dark gray"]
+ASTEROID_COLORS = ["gray27", "gray49", "gray55", "peachpuff4", "wheat4"]
 ASTEROID_RANDOM_NUM_VERTICES_CONSTRAINTS = (
-    10,
     15,
+    20,
 )  # Random number of vertices for the polygon
 ASTEROID_RANDOM_RADIUS_FACTOR_CONSTRAINTS = (
-    0.8,
-    1.2,
+    1.15,
+    1.55,
 )  # Random variation to the radius to create a rugged look
 ASTEROID_RANDOM_SPLIT_ANGLE_CONSTRAINTS = (
     20,
     50,
 )  # Random angle in which split asteroids will move
+ASTEROID_IMMUNITY_COOLDOWN = 1.0 # Time in seconds during which newly spawned asteroids cannot collide with each other
+ASTEROID_NUM_CRATERS_CONSTRAINTS = (4, 7)
+ASTEROID_CRATER_DARKEN_BY = 0.8 # Factor by which each color will be darkened (0.8 means 20%)
 
 PLAYER_SIZE = 25
 PLAYER_TURN_SPEED = 300
