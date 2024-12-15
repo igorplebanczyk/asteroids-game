@@ -1,7 +1,7 @@
 import pygame
 import time
 
-from src.objects.circle_shape import CircleShape
+from src.objects.collision_object import CollisionObject
 from src.objects.constants import (
     PLAYER_RADIUS,
     PLAYER_MAX_LIVES,
@@ -18,7 +18,7 @@ from src.objects.constants import (
 from src.objects.shot import Shot
 
 
-class Player(CircleShape):
+class Player(CollisionObject):
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation: float = 0.0

@@ -1,7 +1,7 @@
 import random
 import pygame
 import math
-from src.objects.circle_shape import CircleShape
+from src.objects.collision_object import CollisionObject
 from src.objects.constants import (
     AsteroidKind,
     ASTEROID_COLORS,
@@ -13,7 +13,7 @@ from src.objects.constants import (
 from src.objects.explosion import Explosion
 
 
-class Asteroid(CircleShape):
+class Asteroid(CollisionObject):
     def __init__(self, x: int, y: int, radius: int, kind: AsteroidKind) -> None:
         super().__init__(x, y, radius)
         self.kind: AsteroidKind = kind

@@ -1,10 +1,10 @@
 import pygame
 
-from src.objects.circle_shape import CircleShape
+from src.objects.collision_object import CollisionObject
 from src.objects.constants import SHOT_RADIUS, SHOT_COLOR
 
 
-class Shot(CircleShape):
+class Shot(CollisionObject):
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y, SHOT_RADIUS)
 

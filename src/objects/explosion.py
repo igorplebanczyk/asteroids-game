@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from src.objects.circle_shape import CircleShape
+from src.objects.collision_object import CollisionObject
 from src.objects.constants import (
     EXPLOSION_CIRCLES_NUM,
     EXPLOSION_RANDOM_RADIUS_FACTOR,
@@ -10,7 +10,7 @@ from src.objects.constants import (
 )
 
 
-class Explosion(CircleShape):
+class Explosion(CollisionObject):
     def __init__(self, x: int, y: int, radius: int) -> None:
         super().__init__(x, y, radius)
         self.life: float = 0.5
